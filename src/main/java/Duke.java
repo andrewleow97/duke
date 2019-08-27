@@ -107,7 +107,7 @@ public class Duke {
                     printILine();
                     break;
 
-                case "todo": // todo
+                case "todo":
                     printILine();
                     printTodo(input.substring(5));
                     printILine();
