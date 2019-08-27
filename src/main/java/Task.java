@@ -8,10 +8,13 @@ public class Task {
     public void markasDone() { // set task as done
         this.isDone = true;
     }
+
     public String getStatusIcon() { // tried copying from website unicode symbols not working
-        return (isDone ? "✓" : "✗"); //return tick or X symbols
+        return (isDone ? "[✓]" : "[✗]"); //return tick or X symbols
     }
-    public String getDescription() { // returns description of task
-        return this.description;
+
+    @Override
+    public String toString() {
+        return (this.getStatusIcon() + this.description);
     }
 }
