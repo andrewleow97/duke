@@ -74,7 +74,7 @@ public class Duke {
         out.println("You now have " + taskList.size() + " tasks in the list.");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -107,36 +107,71 @@ public class Duke {
                     printILine();
                     break;
 
-                case "todo":
+                case "todo": // to do
                     printILine();
-                    printTodo(input.substring(5));
-                    printILine();
-                    break;
+                    try {
+                        if (input.substring(4).length() <= 1) {
+                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        printTodo(input.substring(5));
+                        printILine();
+                        break;
+                    }
+                    catch (DukeException e) {
+                        printIndent();
+                        out.println(e.getMessage());
+                        printILine();
+                    }
+                break;
 
-                case "deadline":
-                    printILine();
-                    String[] deadlineArray = input.split("/by ");
-                    printDeadline(deadlineArray[0], deadlineArray[1]);
-                    printILine();
-                    break;
+                case "deadline": //deadline
+                    try{
+                        String[] deadlineArray = input.split("/by");
+                        if ((input.substring(8).length() <= 1) || (deadlineArray[0].substring(8).isBlank())) {
+                            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        }
+                        if (!input.substring(8).contains(" /by ")) {
+                            throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
+                        }
+                        printILine();
+                        printDeadline(deadlineArray[0], deadlineArray[1]);
+                        printILine();
+                        break;
+                    }
+                    catch (DukeException e) {
+                        printILine();
+                        printIndent();
+                        out.println(e.getMessage());
+                        printILine();
+                    }
+                break;
 
                 case "event":
-                    printILine();
-                    String[] eventArray = input.split("/at ");
-                    printEvent(eventArray[0], eventArray[1]);
-                    printILine();
-                    break;
-                /*case "print":
-                    out.println(command[1]);
-                    break;
-                */
+                    try {
+                        String[] eventArray = input.split("/at ");
+                        if ((input.substring(5).length() <= 1) || eventArray[0].substring(5).isBlank()) {
+                            throw new DukeException( "☹ OOPS!!! The description of a event cannot be empty.");
+                        }
+                        if (!input.substring(5).contains(" /at ")) {
+                            throw new DukeException( "☹ OOPS!!! The time of a event cannot be empty.");
+                        }
+                        printILine();
+                        printEvent(eventArray[0], eventArray[1]);
+                        printILine();
+                        break;
+                    }
+                    catch (DukeException e) {
+                        printILine();
+                        printIndent();
+                        out.println(e.getMessage());
+                        printILine();
+                    }
+                break;
                 default: // default add any non list/bye words as tasks
                     printILine();
                     printIndent();
-                    out.println("added: " + input);
+                    out.println(DukeException.toString("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
                     printILine();
-                    Task tempTask = new Task(input);
-                    addToList(tempTask);
             }
         }
     }
