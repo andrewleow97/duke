@@ -10,6 +10,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String writeToFile(){
+        return "E | " + getDoneInt() + " | " + this.description + " | " + this.time + "\n";
+    }
+
+    @Override
     public String toString() {
         return ("[E]" + super.getStatusIcon() + this.description + " (at: " + this.time + ")");
     }

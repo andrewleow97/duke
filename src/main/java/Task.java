@@ -13,6 +13,14 @@ public class Task {
         return (isDone ? "[✓]" : "[✗]"); //return tick or X symbols
     }
 
+    public int getDoneInt() {
+        return (isDone ? 1 : 0);
+    }
+
+    public String writeToFile(){
+        return "T | " + getDoneInt() + " | " + this.description + "\n";
+    }
+
     @Override
     public String toString() {
         return (this.getStatusIcon() + this.description);

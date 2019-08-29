@@ -12,6 +12,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String writeToFile(){
+        return "D | " + getDoneInt() + " | " + this.description + " | " + this.by + "\n";
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.getStatusIcon() + this.description + " (by: " + this.by + ")";
     }

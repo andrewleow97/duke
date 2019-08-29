@@ -1,10 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 public class Duke {
-    final static ArrayList<Task> taskList = new ArrayList<Task>(100); // initialize tasklist
+    final static ArrayList<Task> taskList = new ArrayList<Task>(100); // initialize taskList
     private static void printIndent() {
         out.print("    ");
     } // print the indentation
@@ -29,8 +33,6 @@ public class Duke {
             printIndent();
             out.print(i+1 + ". ");
             out.println(taskList.get(i).toString());
-            //out.print(taskList.get(i).getStatusIcon());
-            //out.println(taskList.get(i).getDescription());
         }
     }
 
@@ -40,7 +42,7 @@ public class Duke {
         out.println("Nice! I've marked this task as done: ");
         taskList.get(i).markasDone();
         printTask(i);
-    }
+    } // mark task as done, and print accordingly
 
     public static void printTodo(String input) {
         ToDo tempToDo = new ToDo(input);
@@ -50,7 +52,7 @@ public class Duke {
         printTask(taskList.indexOf(tempToDo));
         printIndent();
         out.println("You now have " + taskList.size() + " tasks in the list.");
-    }
+    } // handle to do case, and print that its added
 
     public static void printDeadline(String description, String time) {
         Deadline tempDeadline = new Deadline(description.substring(9), time);
@@ -74,6 +76,70 @@ public class Duke {
         out.println("You now have " + taskList.size() + " tasks in the list.");
     }
 
+    public static void readFile() {
+        try {
+            File file = new File("src/main/java/data/duke.txt");
+            Scanner fileScan = new Scanner(file);
+            while (fileScan.hasNext()) {
+                String temp = fileScan.nextLine();
+                String[] tempArray = temp.split(" \\| ");
+                Task t = new Task("");
+                switch (tempArray[0]) {
+                    case "T":
+                        t = new ToDo(tempArray[2]);
+                        break;
+                    case "D":
+                        t = new Deadline(tempArray[2], tempArray[3]);
+                        break;
+                    case "E":
+                        t = new Event(tempArray[2], tempArray[3]);
+                        break;
+                    default:
+                        throw new DukeException("☹ OOPS!!! Invalid task found");
+                }
+                if (tempArray[1] == "1") {
+                    t.markasDone();
+                }
+                addToList(t);
+                out.println(t.toString());
+            }
+        } catch (FileNotFoundException e) {
+            printILine();
+            printIndent();
+            out.println("☹ OOPS!!! There is no save file found, creating one for you @ src/main/java/data/duke.txt");
+            //createFile();
+            printILine();
+        } catch (DukeException e) {
+            printILine();
+            printIndent();
+            out.println(e);
+            printILine();
+        }
+    }
+
+    /*public static void createFile() {
+        try {
+            File file = new File("src/main/java/data/duke.txt");
+
+        } catch (FileNotFoundException e) {
+
+        }
+    }*/
+
+    public static void writeFile() { // https://www.javatpoint.com/java-filewriter-class
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/data/duke.txt");
+            String temp = "";
+            for (Task x: taskList) {
+                temp += x.writeToFile();
+            }
+            fileWriter.write(temp);
+            fileWriter.close();
+        } catch (IOException e) {
+            out.println("☹ OOPS!!! An error occurred in writing to your save file");
+        }
+    }
+
     public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -83,6 +149,7 @@ public class Duke {
         out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in); // initialize scanner to read input
         boolean run = true;
+        readFile();
         while (run) { // looping input reading
             String input = scanner.nextLine();
             String[] command = input.split(" "); // split up input by spaces
@@ -90,6 +157,7 @@ public class Duke {
                 case "bye": // handles case bye, which sets run to false to exit loop
                     printILine();
                     printIndent();
+                    writeFile(); // write to file to save list on exit
                     out.println("Bye. Hope to see you again soon!");
                     printILine();
                     run = false; // set run to false in order to break the loop
