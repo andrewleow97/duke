@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,11 +38,19 @@ public class Duke {
     }
 
     public static void printDone(String index) { // marks task as done, and prints the task symbol
-        int i = Integer.parseInt(index) - 1;
-        printIndent();
-        out.println("Nice! I've marked this task as done: ");
-        taskList.get(i).markasDone();
-        printTask(i);
+        try {
+            int i = Integer.parseInt(index) - 1;
+            if (i >= taskList.size()) {
+                throw new DukeException("☹ OOPS!!! That task is not in your list");
+            }
+            printIndent();
+            out.println("Nice! I've marked this task as done: ");
+            taskList.get(i).markasDone();
+            printTask(i);
+        } catch (DukeException e) {
+            printIndent();
+            out.println(e.getMessage());
+        }
     } // mark task as done, and print accordingly
 
     public static void printTodo(String input) {
@@ -55,25 +64,40 @@ public class Duke {
     } // handle to do case, and print that its added
 
     public static void printDeadline(String description, String time) {
-        Deadline tempDeadline = new Deadline(description.substring(9), time);
-        addToList(tempDeadline);
-        printIndent();
-        out.println("Got it. I've added this task: ");
-        printIndent();
-        out.println(taskList.get(taskList.indexOf(tempDeadline)).toString());
-        printIndent();
-        out.println("You now have " + taskList.size() + " tasks in the list.");
+        try {
+            Deadline tempDeadline = new Deadline(description.substring(9), time);
+            addToList(tempDeadline);
+            printIndent();
+            out.println("Got it. I've added this task: ");
+            printIndent();
+            out.println(taskList.get(taskList.indexOf(tempDeadline)).toString());
+            printIndent();
+            out.println("You now have " + taskList.size() + " tasks in the list.");
+        } catch (ParseException e) {
+            //printILine();
+            printIndent();
+            out.println("☹ OOPS!!! Please enter a correct date format");
+            //printILine();
+        }
+
     }
 
     public static void printEvent(String description, String time) {
-        Event tempEvent = new Event(description.substring(6), time);
-        addToList(tempEvent);
-        printIndent();
-        out.println("Got it. I've added this task: ");
-        printIndent();
-        out.println(taskList.get(taskList.indexOf(tempEvent)).toString());
-        printIndent();
-        out.println("You now have " + taskList.size() + " tasks in the list.");
+        try {
+            Event tempEvent = new Event(description.substring(6), time);
+            addToList(tempEvent);
+            printIndent();
+            out.println("Got it. I've added this task: ");
+            printIndent();
+            out.println(taskList.get(taskList.indexOf(tempEvent)).toString());
+            printIndent();
+            out.println("You now have " + taskList.size() + " tasks in the list.");
+        } catch (ParseException e) {
+            printILine();
+            printIndent();
+            out.println("☹ OOPS!!! Please enter a correct date format");
+            printILine();
+        }
     }
 
     public static void readFile() {
@@ -101,7 +125,7 @@ public class Duke {
                     t.markasDone();
                 }
                 addToList(t);
-                out.println(t.toString());
+                //out.println(t.toString());
             }
         } catch (FileNotFoundException e) {
             printILine();
@@ -113,6 +137,11 @@ public class Duke {
             printILine();
             printIndent();
             out.println(e);
+            printILine();
+        } catch (ParseException e) {
+            printILine();
+            printIndent();
+            out.println("☹ OOPS!!! Incorrect date format found");
             printILine();
         }
     }
@@ -234,6 +263,13 @@ public class Duke {
                         out.println(e.getMessage());
                         printILine();
                     }
+                break;
+                case "save":
+                    writeFile();
+                    printILine();
+                    printIndent();
+                    out.println("Got it, I've saved your list of tasks!");
+                    printILine();
                 break;
                 default: // default add any non list/bye words as tasks
                     printILine();
