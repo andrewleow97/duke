@@ -22,6 +22,11 @@ public class Duke {
         taskList.add(input);
     }
 
+   /* public static void removeTask(int i) { // removing task from taskList
+        taskList.remove(i-1);
+        out.println("Got it, I've removed that task for you!");
+    } */
+
     public static void printTask(int i) { // print a single task at index i, including completion status
         printIndent();
         out.println(taskList.get(i).toString());
@@ -53,7 +58,7 @@ public class Duke {
         }
     } // mark task as done, and print accordingly
 
-    public static void printTodo(String input) {
+    public static void handleTodo(String input) {
         ToDo tempToDo = new ToDo(input);
         addToList(tempToDo);
         printIndent();
@@ -63,7 +68,7 @@ public class Duke {
         out.println("You now have " + taskList.size() + " tasks in the list.");
     } // handle to do case, and print that its added
 
-    public static void printDeadline(String description, String time) {
+    public static void handleDeadline (String description, String time) {
         try {
             Deadline tempDeadline = new Deadline(description.substring(9), time);
             addToList(tempDeadline);
@@ -76,13 +81,13 @@ public class Duke {
         } catch (ParseException e) {
             //printILine();
             printIndent();
-            out.println("☹ OOPS!!! Please enter a correct date format");
+            out.println("☹ OOPS!!! Please enter a correct date format in the form (dd/mm/yyyy HHmm)");
             //printILine();
         }
 
     }
 
-    public static void printEvent(String description, String time) {
+    public static void handleEvent(String description, String time) {
         try {
             Event tempEvent = new Event(description.substring(6), time);
             addToList(tempEvent);
@@ -95,7 +100,7 @@ public class Duke {
         } catch (ParseException e) {
             printILine();
             printIndent();
-            out.println("☹ OOPS!!! Please enter a correct date format");
+            out.println("☹ OOPS!!! Please enter a correct date format in the form (dd/mm/yyyy HHmm)");
             printILine();
         }
     }
@@ -145,15 +150,6 @@ public class Duke {
             printILine();
         }
     }
-
-    /*public static void createFile() {
-        try {
-            File file = new File("src/main/java/data/duke.txt");
-
-        } catch (FileNotFoundException e) {
-
-        }
-    }*/
 
     public static void writeFile() { // https://www.javatpoint.com/java-filewriter-class
         try {
@@ -210,7 +206,7 @@ public class Duke {
                         if (input.substring(4).length() <= 1) {
                             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                         }
-                        printTodo(input.substring(5));
+                        handleTodo(input.substring(5));
                         printILine();
                         break;
                     }
@@ -223,6 +219,10 @@ public class Duke {
 
                 case "deadline": //deadline
                     try{
+                        String[] deadlineTemp = input.split("deadline");
+                        if (!deadlineTemp[1].contains("/by")) {
+                            throw new DukeException("☹ OOPS!!! Please input the correct format: deadline (description) /by (time)");
+                        }
                         String[] deadlineArray = input.split("/by");
                         if ((input.substring(8).length() <= 1) || (deadlineArray[0].substring(8).isBlank())) {
                             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -231,7 +231,7 @@ public class Duke {
                             throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
                         }
                         printILine();
-                        printDeadline(deadlineArray[0], deadlineArray[1]);
+                        handleDeadline(deadlineArray[0], deadlineArray[1]);
                         printILine();
                         break;
                     }
@@ -253,7 +253,7 @@ public class Duke {
                             throw new DukeException( "☹ OOPS!!! The time of a event cannot be empty.");
                         }
                         printILine();
-                        printEvent(eventArray[0], eventArray[1]);
+                        handleEvent(eventArray[0], eventArray[1]);
                         printILine();
                         break;
                     }
@@ -264,13 +264,34 @@ public class Duke {
                         printILine();
                     }
                 break;
+
                 case "save":
                     writeFile();
                     printILine();
                     printIndent();
-                    out.println("Got it, I've saved your list of tasks!");
+                    out.println("Got it, I've saved your list of tasks.");
                     printILine();
                 break;
+
+                /*case "remove":
+                    try {
+                        printILine();
+                        printIndent();
+                        removeTask((Integer.parseInt(command[1])));
+                        printILine();
+                        break;
+                    } catch (DukeException e) {
+                        printILine();
+                        printIndent();
+                        out.println(e.getMessage());
+                        printILine();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        printILine();
+                        printIndent();
+                        out.println("☹ OOPS!!! That task index is not in your task list");
+                    }
+                break;*/
+
                 default: // default add any non list/bye words as tasks
                     printILine();
                     printIndent();
