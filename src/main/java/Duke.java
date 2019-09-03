@@ -88,7 +88,7 @@ public class Duke {
         } catch (ParseException e) {
             //printILine();
             printIndent();
-            out.println("☹ OOPS!!! Please enter a correct date format in the form (dd/mm/yyyy HHmm)");
+            out.println("☹ OOPS!!! Please enter a correct date format (dd/mm/yyyy HHmm)");
             //printILine();
         }
 
@@ -105,10 +105,8 @@ public class Duke {
             printIndent();
             out.println("You now have " + taskList.size() + " tasks in the list.");
         } catch (ParseException e) {
-            printILine();
             printIndent();
-            out.println("☹ OOPS!!! Please enter a correct date format in the form (dd/mm/yyyy HHmm)");
-            printILine();
+            out.println("☹ OOPS!!! Please enter a correct date format (dd/mm/yyyy HHmm)");
         }
     }
 
@@ -178,7 +176,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        out.println("Hello from\n" + logo);
+        out.println("Hello from\n" + logo + "\nHow can I help you?\n");
         Scanner scanner = new Scanner(System.in); // initialize scanner to read input
         boolean run = true;
         readFile();
@@ -209,8 +207,8 @@ public class Duke {
                     break;
 
                 case "todo": // to do
-                    printILine();
                     try {
+                        printILine();
                         if (input.substring(4).length() <= 1) {
                             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                         }
@@ -228,15 +226,14 @@ public class Duke {
 
                 case "deadline": //deadline
                     try{
-                        String[] deadlineTemp = input.split("deadline");
-                        if (!deadlineTemp[1].contains("/by")) {
+                        if (!input.substring(8).contains("/by")) {
                             throw new DukeException("☹ OOPS!!! Please input the correct format: deadline (description) /by (time)");
                         }
                         String[] deadlineArray = input.split("/by");
                         if ((input.substring(8).length() <= 1) || (deadlineArray[0].substring(8).isBlank())) {
                             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                         }
-                        if (!input.substring(8).contains(" /by ")) {
+                        if (deadlineArray[1].length() <= 1) {
                             throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
                         }
                         printILine();
@@ -255,11 +252,14 @@ public class Duke {
 
                 case "event":
                     try {
+                        if (!input.substring(5).contains("/at")) {
+                            throw new DukeException("☹ OOPS!!! Please input the correct format: event (description) /at (time)");
+                        }
                         String[] eventArray = input.split("/at ");
                         if ((input.substring(5).length() <= 1) || eventArray[0].substring(5).isBlank()) {
                             throw new DukeException( "☹ OOPS!!! The description of a event cannot be empty.");
                         }
-                        if (!input.substring(5).contains(" /at ")) {
+                        if (eventArray[1].length() <= 1) {
                             throw new DukeException( "☹ OOPS!!! The time of a event cannot be empty.");
                         }
                         printILine();
@@ -274,7 +274,7 @@ public class Duke {
                         out.println(e.getMessage());
                         printILine();
                     }
-                break;
+                    break;
 
                 case "save":
                     writeFile();

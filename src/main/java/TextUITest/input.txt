@@ -1,0 +1,9 @@
+todo task
+deadline deadlinetask /by 03/09/2019 1800
+event eventtask /at now
+event eventtask /at 03/10/2010 1700
+list
+done 2
+list
+save
+bye
