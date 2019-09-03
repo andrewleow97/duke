@@ -170,6 +170,24 @@ public class Duke {
         }
     }
 
+    public static void findTask(String input) {
+        ArrayList<Task> findArray = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).description.contains(input)) {
+                findArray.add(taskList.get(i));
+          //  } else if (taskList.get(i).) {
+
+            }
+        }
+        if (findArray.isEmpty()) {
+            out.println("☹ OOPS!!! No tasks in your task list match your search.");
+        }
+        for (int i = 0; i < findArray.size(); i++) {
+            printIndent();
+            out.println((i+1) + ". " + findArray.get(i).toString());
+        }
+    }
+
     public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -298,6 +316,22 @@ public class Duke {
                         out.println("☹ OOPS!!! That task index is not in your task list");
                     }
                 break;
+
+                case "find":
+                    try {
+                        printILine();
+                        printIndent();
+                        out.println("Here are the matching tasks in your list: ");
+                        findTask(input.substring(5));
+                        printILine();
+                        break;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        printILine();
+                        printIndent();
+                        out.println("☹ OOPS!!! Please enter an input");
+                        printILine();
+                    }
+                    break;
 
                 default: // default add any non list/bye words as tasks
                     printILine();
