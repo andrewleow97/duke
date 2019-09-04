@@ -22,10 +22,17 @@ public class Duke {
         taskList.add(input);
     }
 
-   /* public static void removeTask(int i) { // removing task from taskList
-        taskList.remove(i-1);
-        out.println("Got it, I've removed that task for you!");
-    } */
+    public static void removeTask(int i) { // removing task from taskList
+        try {
+            if (i-1 >= taskList.size()) {
+                throw new DukeException("☹ OOPS!!! That task is not in your list");
+            }
+            taskList.remove(i - 1);
+            out.println("Got it, I've removed that task for you!");
+        } catch (DukeException e) {
+            out.println(e.getMessage());
+        }
+    }
 
     public static void printTask(int i) { // print a single task at index i, including completion status
         printIndent();
@@ -56,7 +63,7 @@ public class Duke {
             printIndent();
             out.println(e.getMessage());
         }
-    } // mark task as done, and print accordingly
+    }
 
     public static void handleTodo(String input) {
         ToDo tempToDo = new ToDo(input);
@@ -198,6 +205,7 @@ public class Duke {
                     printILine();
                     printDone(command[1]);
                     printILine();
+                    writeFile();
                     break;
 
                 case "todo": // to do
@@ -208,6 +216,7 @@ public class Duke {
                         }
                         handleTodo(input.substring(5));
                         printILine();
+                        writeFile();
                         break;
                     }
                     catch (DukeException e) {
@@ -233,6 +242,7 @@ public class Duke {
                         printILine();
                         handleDeadline(deadlineArray[0], deadlineArray[1]);
                         printILine();
+                        writeFile();
                         break;
                     }
                     catch (DukeException e) {
@@ -255,6 +265,7 @@ public class Duke {
                         printILine();
                         handleEvent(eventArray[0], eventArray[1]);
                         printILine();
+                        writeFile();
                         break;
                     }
                     catch (DukeException e) {
@@ -273,24 +284,20 @@ public class Duke {
                     printILine();
                 break;
 
-                /*case "remove":
+                case "remove":
                     try {
                         printILine();
                         printIndent();
                         removeTask((Integer.parseInt(command[1])));
                         printILine();
+                        writeFile();
                         break;
-                    } catch (DukeException e) {
-                        printILine();
-                        printIndent();
-                        out.println(e.getMessage());
-                        printILine();
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    }  catch (ArrayIndexOutOfBoundsException e) {
                         printILine();
                         printIndent();
                         out.println("☹ OOPS!!! That task index is not in your task list");
                     }
-                break;*/
+                break;
 
                 default: // default add any non list/bye words as tasks
                     printILine();
