@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String writeToFile(){
-        return "D | " + getDoneInt() + " | " + this.description + " | " + this.by + "\n";
+        return "D | " + getDoneInt() + " | " + this.description + " | " + this.date + "\n";
     }
 
     @Override

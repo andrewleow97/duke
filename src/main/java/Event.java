@@ -17,7 +17,7 @@ public class Event extends Task{
 
     @Override
     public String writeToFile(){
-        return "E | " + getDoneInt() + " | " + this.description + " | " + this.time + "\n";
+        return "E | " + getDoneInt() + " | " + this.description + " | " + this.date + "\n";
     }
 
     @Override

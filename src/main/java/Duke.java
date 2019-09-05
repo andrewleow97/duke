@@ -8,14 +8,40 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
+
+
 public class Duke {
     final static ArrayList<Task> taskList = new ArrayList<Task>(100); // initialize taskList
+
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+    private static final String filePath = "src/main/java/data/duke.txt";
+
     private static void printIndent() {
         out.print("    ");
     } // print the indentation
 
     private static void printILine() { // print the indented line
         out.println("    ____________________________________________________________");
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
     }
 
     public static void addToList(Task input) { // add Task class to the taskList ArrayList
