@@ -42,7 +42,9 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        out.println("Error loading from list of tasks at: src/main/java/data/duke.txt");
+        showLine();
+        showMessage("Error loading from list of tasks at: src/main/java/data/duke.txt");
+        showLine();
     }
 
     public String readCommand() {

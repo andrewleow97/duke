@@ -14,12 +14,9 @@ public class ToDoCommand extends Command {
         }
         ToDo tempToDo = new ToDo(this.description);
         tasks.taskList.add(tempToDo);
-        ui.showLine();
-        ui.showIndent();
         ui.showMessage("Got it, I've added this task: " );
-        ui.showIndent();
         ui.showMessage(tempToDo.toString());
-        ui.showIndent();
         ui.showMessage("You now have " + tasks.taskList.size() + " tasks in the list.");
+        storage.saveFile(tasks.taskList);
     }
 }

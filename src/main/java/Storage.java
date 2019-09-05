@@ -12,18 +12,17 @@ public class Storage {
     public Storage(String filePath) {
         this.file = new File(filePath);
         Ui ui = new Ui();
-        if (!file.exists()) {
+        /*if (!file.exists()) {
             ui.showError("☹ OOPS!!! There is no save file found, creating one for you @ src/main/java/data/duke.txt");
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 ui.showError("☹ OOPS!!! An error occurred creating your file.");
             }
-        }
+        }*/
     }
 
-    public ArrayList<Task> loadFile() throws FileNotFoundException, DukeException {
-        try {
+    public ArrayList<Task> loadFile() throws FileNotFoundException, DukeException, ParseException {
             Scanner fileScan = new Scanner(file);
             ArrayList<Task> fileList = new ArrayList<>();
             while (fileScan.hasNextLine()) {
@@ -48,9 +47,6 @@ public class Storage {
             }
             fileScan.close();
             return fileList;
-        } catch (ParseException e) {
-            return null;
-        }
     }
 
     public void saveFile(ArrayList<Task> taskList) {

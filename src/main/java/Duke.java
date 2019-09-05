@@ -23,7 +23,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadFile());
-        } catch (FileNotFoundException | DukeException e) {
+        } catch (FileNotFoundException | DukeException | ParseException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
