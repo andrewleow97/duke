@@ -1,10 +1,9 @@
+import java.text.ParseException;
+
 public class Parser {
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws DukeException, ParseException {
         String[] command = input.split(" ");
         switch (command[0]) {
-            if (command[1].isEmpty() || command[1].isBlank()) {
-                throw new DukeException("☹ OOPS!!! Please enter a valid command");
-            }
             case "bye":
                 return new ExitCommand();
             case "list":

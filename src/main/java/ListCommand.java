@@ -8,8 +8,7 @@ public class ListCommand extends Command {
             }
             ui.showMessage("Here are the tasks in you list: ");
             for (int i = 0; i < tasks.taskList.size(); i++) {
-                ui.showIndent();
-                System.out.println(i + 1 + ". " + tasks.taskList.get(i).toString());
+                ui.showMessage(i + 1 + ". " + tasks.taskList.get(i).toString());
             }
         } catch (DukeException e) {
             ui.showError(e.getMessage());

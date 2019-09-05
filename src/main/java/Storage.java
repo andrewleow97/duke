@@ -22,7 +22,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadFile() {
+    public ArrayList<Task> loadFile() throws FileNotFoundException, DukeException {
         try {
             Scanner fileScan = new Scanner(file);
             ArrayList<Task> fileList = new ArrayList<>();
@@ -48,9 +48,6 @@ public class Storage {
             }
             fileScan.close();
             return fileList;
-        } catch (FileNotFoundException e) {
-            new Storage("src/main/java/data/duke.txt");
-            return null;
         } catch (ParseException e) {
             return null;
         }
@@ -60,17 +57,15 @@ public class Storage {
         Ui ui = new Ui();
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/data/duke.txt");
-            String save = null;
+            String save = "";
             for (Task t: taskList) {
                 save += t.writeToFile();
             }
             fileWriter.write(save);
             fileWriter.close();
         } catch (IOException e) {
-            ui.showLine();
             ui.showIndent();
             ui.showError("☹ OOPS!!! An error occurred in writing to your save file");
-            ui.showLine();
         }
     }
 }

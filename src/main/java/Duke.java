@@ -18,12 +18,15 @@ public class Duke {
     private TaskList tasks;
     private static final String filePath = "src/main/java/data/duke.txt";
 
-    private static void printIndent() {
-        out.print("    ");
-    } // print the indentation
-
-    private static void printILine() { // print the indented line
-        out.println("    ____________________________________________________________");
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.loadFile());
+        } catch (FileNotFoundException | DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
     public void run() {
@@ -36,12 +39,20 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DukeException | ParseException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
+    }
+
+    private static void printIndent() {
+        out.print("    ");
+    } // print the indentation
+
+    private static void printILine() { // print the indented line
+        out.println("    ____________________________________________________________");
     }
 
     public static void addToList(Task input) { // add Task class to the taskList ArrayList
@@ -218,7 +229,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        String logo = " ____        _        \n"
+        /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
@@ -367,6 +378,8 @@ public class Duke {
                     printILine();
             }
         }
+    }*/
+        new Duke(filePath).run();
     }
 }
 

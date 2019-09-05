@@ -27,24 +27,22 @@ public class Ui {
     }
 
     public void showMessage(String e) {
-        showLine();
         showIndent();
         out.println(e);
-        showLine();
     }
 
     public void showGoodbye() {
-        showLine();
         showIndent();
         out.println("Bye. Hope to see you again soon!");
-        showLine();
     }
 
     public void showError(String e) {
-        showLine();
         showIndent();
         out.println(e);
-        showLine();
+    }
+
+    public void showLoadingError() {
+        out.println("Error loading from list of tasks at: src/main/java/data/duke.txt");
     }
 
     public String readCommand() {

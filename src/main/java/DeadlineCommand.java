@@ -28,15 +28,10 @@ public class DeadlineCommand extends Command {
         try {
             Deadline tempDeadline = new Deadline(this.description, this.by);
             tasks.taskList.add(tempDeadline);
-            ui.showLine();
-            ui.showIndent();
             ui.showMessage("Got it, I've added this task: ");
-            ui.showIndent();
             ui.showMessage(tempDeadline.toString());
-            ui.showIndent();
             ui.showMessage("You now have " + tasks.taskList.size() + " tasks in the list.");
         } catch (ParseException e) {
-            ui.showIndent();
             ui.showMessage("☹ OOPS!!! Please enter a correct date format (dd/mm/yyyy HHmm)");
         }
     }
