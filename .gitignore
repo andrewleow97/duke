@@ -12,3 +12,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+Deadline.class
+Duke.class
+DukeException.class
+Event.class
+Task.class
+ToDo.class

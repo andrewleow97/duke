@@ -173,7 +173,7 @@ public class Duke {
     public static void findTask(String input) {
         ArrayList<Task> findArray = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).description.contains(input)) {
+            if (taskList.get(i).toString().contains(input)) {
                 findArray.add(taskList.get(i));
           //  } else if (taskList.get(i).) {
 
@@ -181,7 +181,10 @@ public class Duke {
         }
         if (findArray.isEmpty()) {
             out.println("☹ OOPS!!! No tasks in your task list match your search.");
+            return;
         }
+        printIndent();
+        out.println("Here are the matching tasks in your list: ");
         for (int i = 0; i < findArray.size(); i++) {
             printIndent();
             out.println((i+1) + ". " + findArray.get(i).toString());
@@ -320,8 +323,6 @@ public class Duke {
                 case "find":
                     try {
                         printILine();
-                        printIndent();
-                        out.println("Here are the matching tasks in your list: ");
                         findTask(input.substring(5));
                         printILine();
                         break;
