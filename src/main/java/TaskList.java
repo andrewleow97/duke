@@ -4,6 +4,7 @@ public class TaskList {
     public ArrayList<Task> taskList = new ArrayList<Task>(100);
 
     public TaskList() {
+        this.taskList = new ArrayList<Task>(100);
     }
 
     public TaskList(ArrayList<Task> List) {

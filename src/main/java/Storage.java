@@ -11,15 +11,6 @@ public class Storage {
 
     public Storage(String filePath) {
         this.file = new File(filePath);
-        Ui ui = new Ui();
-        /*if (!file.exists()) {
-            ui.showError("☹ OOPS!!! There is no save file found, creating one for you @ src/main/java/data/duke.txt");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                ui.showError("☹ OOPS!!! An error occurred creating your file.");
-            }
-        }*/
     }
 
     public ArrayList<Task> loadFile() throws FileNotFoundException, DukeException, ParseException {
@@ -27,7 +18,7 @@ public class Storage {
             ArrayList<Task> fileList = new ArrayList<>();
             while (fileScan.hasNextLine()) {
                 String temp = fileScan.nextLine();
-                String[] tempArray = temp.split(" \\| ");
+                String[] tempArray = temp.split(" \\| ", 4);
                 Task t = null;
                 switch (tempArray[0]) {
                     case "T":
@@ -40,12 +31,14 @@ public class Storage {
                         t = new Event(tempArray[2], tempArray[3]);
                         break;
                 }
-                if (tempArray[1] == "1") {
+                if (tempArray[1].contains("1")) {
                     t.markasDone();
                 }
                 fileList.add(t);
             }
-            fileScan.close();
+//            for (Task t : fileList) {
+//                System.out.println(t.toString());
+//            }
             return fileList;
     }
 
