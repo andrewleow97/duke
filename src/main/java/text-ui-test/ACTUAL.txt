@@ -1,0 +1,58 @@
+    ____________________________________________________________
+    Error loading from list of tasks at: src/main/java/data/duke.txt
+    ____________________________________________________________
+Hello from
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+How can I help you?
+
+    ____________________________________________________________
+    Got it, I've added this task: 
+    [T][✗]task
+    You now have 1 tasks in the list.
+        ☹ OOPS!!! An error occurred in writing to your save file
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it, I've added this task: 
+    [D][✗]deadlinetask  (by: Tue Sep 03 18:00:00 SGT 2019)
+    You now have 2 tasks in the list.
+        ☹ OOPS!!! An error occurred in writing to your save file
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! Please enter a correct date format (dd/mm/yyyy HHmm)
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it, I've added this task: 
+    [E][✗] eventtask  (at: Sun Oct 03 17:00:00 SGT 2010)
+    You now have 3 tasks in the list.
+        ☹ OOPS!!! An error occurred in writing to your save file
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in you list: 
+    1. [T][✗]task
+    2. [D][✗]deadlinetask  (by: Tue Sep 03 18:00:00 SGT 2019)
+    3. [E][✗] eventtask  (at: Sun Oct 03 17:00:00 SGT 2010)
+    ____________________________________________________________
+    ____________________________________________________________
+        Nice! I've marked this task as done: 
+    [T][✓]task
+        ☹ OOPS!!! An error occurred in writing to your save file
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in you list: 
+    1. [T][✓]task
+    2. [D][✗]deadlinetask  (by: Tue Sep 03 18:00:00 SGT 2019)
+    3. [E][✗] eventtask  (at: Sun Oct 03 17:00:00 SGT 2010)
+    ____________________________________________________________
+    ____________________________________________________________
+        ☹ OOPS!!! An error occurred in writing to your save file
+    Got it, I've saved your list of tasks.
+    ____________________________________________________________
+    ____________________________________________________________
+    Bye. Hope to see you again soon!
+        ☹ OOPS!!! An error occurred in writing to your save file
+    ____________________________________________________________

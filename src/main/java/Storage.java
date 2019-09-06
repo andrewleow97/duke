@@ -60,7 +60,6 @@ public class Storage {
             fileWriter.write(save);
             fileWriter.close();
         } catch (IOException e) {
-            ui.showIndent();
             ui.showError("☹ OOPS!!! An error occurred in writing to your save file");
         }
     }
