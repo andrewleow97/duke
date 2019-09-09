@@ -1,10 +1,16 @@
 public class RemoveCommand extends Command {
     private int x;
-    public RemoveCommand(String command) throws DukeException{
-        if (command.length() < 1) {
-            throw new DukeException("☹ OOPS!!! Please enter a valid number");
+    public RemoveCommand(String input) throws DukeException{
+        try {
+            String[] command = input.split(" ");
+            if (command[1].isEmpty() || command[1].isBlank() || input.length() <= 5) {
+                throw new DukeException("☹ OOPS!!! Please enter a valid number");
+            } else {
+                this.x = Integer.parseInt(command[1]) - 1;
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
-        this.x = Integer.parseInt(command) - 1;
     }
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (x < 0 || x > tasks.taskList.size()) {
