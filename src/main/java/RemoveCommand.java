@@ -18,7 +18,7 @@ public class RemoveCommand extends Command {
         }
         ui.showMessage("Noted. I've removed this task: ");
         ui.showMessage(tasks.taskList.get(x).toString());
-        tasks.removeFromList(x);
+        tasks.taskList.remove(x);
         ui.showMessage("You now have " + tasks.taskList.size() + " tasks in the list.");
         storage.saveFile(tasks.taskList);
     }

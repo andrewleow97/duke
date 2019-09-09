@@ -9,20 +9,7 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> List) {
         for (Task t: List) {
-            addToList(t);
+            taskList.add(t);
         }
     }
-
-    public int getSize() {
-        return taskList.size();
-    }
-
-    public void addToList(Task input) {
-        taskList.add(input);
-    }
-
-    public void removeFromList(int i) throws ArrayIndexOutOfBoundsException{
-        taskList.remove(i);
-    }
-
 }
