@@ -9,7 +9,7 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "done":
-                return new DoneCommand(command[1]);
+                return new DoneCommand(input);
             case "todo":
                 return new ToDoCommand(input);
             case "deadline":
@@ -19,7 +19,7 @@ public class Parser {
             case "save":
                 return new SaveCommand();
             case "remove":
-                return new RemoveCommand(command[1]);
+                return new RemoveCommand(input);
             case "find":
                 return new FindCommand(input);
             default:
