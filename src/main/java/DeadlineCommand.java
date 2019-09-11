@@ -1,8 +1,18 @@
 import java.text.ParseException;
 
+/**
+ * Deadline Command that handles when user wants to add a deadline task to the tasklist, extends the abstract Command class
+ */
 public class DeadlineCommand extends Command {
     protected String description;
     protected String by;
+
+    /**
+     * Instantiates DeadlineCommand from the Parser class, taking the users input
+     * @param input Entire string input by the user of the format (deadline 'description' /by 'by')
+     * @throws DukeException Handles bad formatting of the user input
+     * @throws ParseException Handles bad date format of user input
+     */
     public DeadlineCommand(String input) throws DukeException, ParseException {
         try {
         if (!input.substring(8).contains("/by")) {
@@ -21,14 +31,16 @@ public class DeadlineCommand extends Command {
             throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
         }
     }
+
+    /**
+     * Adds the deadline task to the tasklist, prints confirmation through the ui as well as number of tasks in the list, and stores the newly added deadline task to the storage file
+     * Throws ParseException and ArrayIndexOutOfBoundsException if input is formatted incorrectly
+     * @param tasks tasklist of tasks that the new deadline task is added to
+     * @param ui Ui that handles printing of messages
+     * @param storage Storage to store the tasklist
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (this.description.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-        }
-        if (this.by.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The time of a deadline cannot be empty.");
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Deadline tempDeadline = new Deadline(this.description, this.by);
             tasks.taskList.add(tempDeadline);

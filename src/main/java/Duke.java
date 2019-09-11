@@ -1,15 +1,11 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import static java.lang.System.out;
 
 
-
+/**
+ * Main class Duke which
+ */
 public class Duke {
     final static ArrayList<Task> taskList = new ArrayList<Task>(100); // initialize taskList
 
@@ -18,6 +14,10 @@ public class Duke {
     private TaskList tasks;
     private static final String filePath = "src/main/java/data/duke.txt";
 
+    /**
+     * Initiates duke with the defined filepath for saving, and tries to load tasks from the save file
+     * @param filePath string to the save file's path
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -29,6 +29,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Run command that runs the duke function in the main, intializes tasklist, ui and storage
+     * while exit is false (i.e ExitCommand has not been issued) next line will be taken in as tokenized input, and sent to parser for execution of commands
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -47,7 +51,7 @@ public class Duke {
         }
     }
 
-    private static void printIndent() {
+    /*private static void printIndent() {
         out.print("    ");
     } // print the indentation
 
@@ -226,7 +230,7 @@ public class Duke {
             printIndent();
             out.println((i+1) + ". " + findArray.get(i).toString());
         }
-    }
+    }*/
 
     public static void main(String[] args) throws DukeException {
         /*String logo = " ____        _        \n"

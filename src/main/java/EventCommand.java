@@ -1,8 +1,18 @@
 import java.text.ParseException;
 
+/**
+ * Event Command that handles when user wants to add a Event task to the tasklist, extends the abstract Command class
+ */
 public class EventCommand extends Command{
     protected String description;
     protected String by;
+
+    /**
+     * Instantiates EventCommand from the Parser class, taking the users input
+     * @param input Entire string input by the user of the format (Event 'description' /at 'time')
+     * @throws DukeException Handles bad formatting of the user input
+     * @throws ParseException Handles bad date format of user input
+     */
     public EventCommand(String input) throws DukeException, ParseException {
         try {
             if (!input.substring(5).contains("/at")) {
@@ -21,6 +31,14 @@ public class EventCommand extends Command{
             throw new DukeException("☹ OOPS!!! The time of a event cannot be empty.");
         }
     }
+
+    /**
+     * Adds the Event task to the tasklist, prints confirmation through the ui as well as number of tasks in the list, and stores the newly added Event task to the storage file
+     * Throws ParseException and ArrayIndexOutOfBoundsException if input is formatted incorrectly
+     * @param tasks tasklist of tasks that the new Event task is added to
+     * @param ui Ui that handles printing of messages
+     * @param storage Storage to store the tasklist
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.description.isEmpty()) {

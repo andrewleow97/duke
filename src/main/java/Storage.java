@@ -6,14 +6,27 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle reading and writing to the save file at a predefined filePath
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructor for the Storage class
+     * @param filePath filePath of the save file to be read/written to
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
-    public ArrayList<Task> loadFile() throws FileNotFoundException, DukeException, ParseException {
+    /**
+     * Scans the save file line by line, and stores its content in an ArrayList of tasks according to the data read
+     * @return Returns an ArrayList of tasks to be used by Duke
+     * @throws FileNotFoundException Handles if there is no file found at the filePath
+     * @throws ParseException thrown if there are errors in the save file's content
+     */
+    public ArrayList<Task> loadFile() throws FileNotFoundException, ParseException {
             Scanner fileScan = new Scanner(file);
             ArrayList<Task> fileList = new ArrayList<>();
             while (fileScan.hasNextLine()) {
@@ -36,12 +49,13 @@ public class Storage {
                 }
                 fileList.add(t);
             }
-//            for (Task t : fileList) {
-//                System.out.println(t.toString());
-//            }
             return fileList;
     }
 
+    /**
+     * Method to save the task list in Duke to the specified filePath
+     * @param taskList Takes in the taskList of tasks, and saves to the save file task by task
+     */
     public void saveFile(ArrayList<Task> taskList) {
         Ui ui = new Ui();
         try {
@@ -52,8 +66,7 @@ public class Storage {
             }
             fileWriter.write(save);
             fileWriter.close();
-        } catch (IOException e) {
-            //ui.showError("☹ OOPS!!! An error occurred in writing to your save file");
+        } catch (IOException e) { // required for fileWriter to not throw errors
         }
     }
 }

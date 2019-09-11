@@ -1,5 +1,15 @@
+/**
+ * DoneCommand that handles 'done' cases from user input.
+ * Inherits Command class
+ */
 public class DoneCommand extends Command {
     private int x;
+
+    /**
+     * Checks if input is valid, and converts it to an int to be stored in the class
+     * Throws exceptions is user does not input a valid number
+     * @param input User input of a number to be converted into an integer
+     */
     public DoneCommand (String input) {
         try {
             String[] command = input.split(" ");
@@ -13,6 +23,14 @@ public class DoneCommand extends Command {
         }
     }
 
+    /**
+     * Sets the isDone of a task to true/1, based on the index of the task in the task list, and the user input
+     * After which it saves the tasklist to the save file
+     * @param tasks tasklist of tasks, sets the i-th task as done based on user input
+     * @param ui ui for printing
+     * @param storage storage for saving the task list
+     * @throws DukeException if task index is not in the list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
